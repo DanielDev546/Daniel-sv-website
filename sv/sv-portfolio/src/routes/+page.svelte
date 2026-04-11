@@ -17,21 +17,40 @@
 </script>
 
 <header class="fixed top-0 w-full z-50 border-b border-white/5 bg-black/50 backdrop-blur-xl">
-	<div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-		<div class="flex  justify-center items-center gap-2">
-			<div class="w-1.5 h-1.5 bg-[#00D1FF] rounded-full shadow-[0_0_8px_#00D1FF]"></div>
-			<span class="font-black tracking-widest text-sm uppercase">Daniel.com</span>
- 
-            <li class="text-0.5xl text-gray-500">Home</li>
-            <li class="text-0.5xl text-gray-500">Project</li>
-            <li class="text-0.5xl text-gray-500">Home</li>
-            <li class="text-0.5xl text-gray-500">Home</li>
+	<nav class="flex items-center justify-between h-20 px-[10%] bg-[#0a0a0a]/80 backdrop-blur-md border-b border-gray-800 sticky top-0 z-50">
+  <div class="text-white font-extrabold tracking-widest text-xl">
+    AMUND.OS
+  </div>
+  
+  <ul class="hidden md:flex items-center space-x-10">
+    <li>
+      <a href="#" class="relative text-white text-sm font-medium after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-[2px] after:bg-[#00f2ff] after:shadow-[0_0_10px_#00f2ff]">
+        Home
+      </a>
+    </li>
+    <li>
+      <a href="#" class="text-gray-400 text-sm font-medium hover:text-white transition-colors">
+        Projects
+      </a>
+    </li>
+    <li>
+      <a href="#" class="text-gray-400 text-sm font-medium hover:text-white transition-colors">
+        About
+      </a>
+    </li>
+    <li>
+      <a href="#" class="text-gray-400 text-sm font-medium hover:text-white transition-colors">
+        Contact
+      </a>
+    </li>
+  </ul>
 
-		</div>
-		<button class="border bg-[#00D1FF] text-[black] font-bold  text-[10px] px-8 py-3 tracking-tighter hover:bg-[#00D1FF] hover:text-black transition-all">
-			Resume
-		</button>
-	</div>
+  <div>
+    <button class="bg-[#c2f3f1] text-black px-6 py-2 rounded-sm font-bold text-sm hover:bg-[#00f2ff] hover:shadow-[0_0_20px_rgba(0,242,255,0.4)] transition-all transform hover:-translate-y-0.5">
+      Resume
+    </button>
+  </div>
+</nav>
 </header><br><br>
 
 <main class="   max-w-6xl mx-auto px-6 pt-32 pb-20">
@@ -59,9 +78,47 @@
 			</button>
 			<button class="border border-white/10 text-white font-bold ml-5 text-xs px-8 py-4 tracking-widest hover:bg-white/5">
 				CONTACT ME
-			</button>gg
+			</button>
 		</div>
         	<div class="h-[1px] mt-13 flex-1 bg-white/10"></div>
+           <div class="flex gap-20 mt-8">
+		   <div class="flex-col gap-0.3">
+			<p class=" text-gray-400 max-w-md text-xl-sm leading-relaxed mt-8">
+		    TECH  STACK
+			</p>
+			<p class=" text-white font-bold max-w-md text-2xl-sm leading-relaxed text-2xl mt-4">
+				TypeScript
+			</p>
+			</div>
+
+			  <div class="flex-col gap-0.3">
+			<p class=" text-gray-400 max-w-md text-xl-sm leading-relaxed mt-8">
+		    DATABASES
+			</p>
+			<p class=" text-white font-bold max-w-md text-2xl-sm leading-relaxed text-2xl mt-4">
+				SQLite
+			</p>
+			</div>
+
+			  <div class="flex-col gap-0.3">
+			<p class=" text-gray-400 max-w-md text-xl-sm leading-relaxed mt-8">
+		    DEPLOYMENT
+			</p>
+			<p class=" text-white font-bold max-w-md text-2xl-sm leading-relaxed text-2xl mt-4">
+				VERCEL
+			</p>
+			</div>
+
+			  <div class="flex-col gap-0.3">
+			<p class=" text-gray-400 max-w-md text-xl-sm leading-relaxed mt-8">
+		    AUTH
+			</p>
+			<p class=" text-white font-bold max-w-md text-2xl-sm leading-relaxed text-2xl mt-4">
+				JWT/OAUTH
+			</p>
+			</div>
+
+		   </div>
 
 	</section>
 
