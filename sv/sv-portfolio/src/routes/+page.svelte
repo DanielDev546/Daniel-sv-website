@@ -88,9 +88,11 @@
                     </p>
                     
                     <div class="flex gap-4">
+                    <a href="/projects">
                         <button class="bg-[#00D1FF] text-black font-bold text-xs px-8 py-4 tracking-widest hover:brightness-110 transition-all hover:scale-105">
                             VIEW PROJECTS
                         </button>
+                    </a>
                         <button class="border border-white/10 text-white font-bold text-xs px-8 py-4 tracking-widest hover:bg-white/5 transition-all">
                             CONTACT ME
                         </button>
