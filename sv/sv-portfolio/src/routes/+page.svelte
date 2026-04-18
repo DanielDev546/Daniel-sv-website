@@ -162,7 +162,7 @@
       </p>
 
         </div>
-        <a href="#" class="text-sm text-[#00D1FF] hover:underline decoration-2 underline-offset-8 transition-all">
+        <a href="/projects" class="text-sm text-[#00D1FF] hover:underline decoration-2 underline-offset-8 transition-all">
             Explore All
         </a>
     </div>
