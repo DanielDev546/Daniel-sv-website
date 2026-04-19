@@ -78,7 +78,7 @@
     <header class="mb-16">
         <div class="flex items-center gap-2 mb-2">
             <div class="w-8 h-[1px] bg-gray-700"></div>
-            <span class="text-gray-500 font-mono text-[10px] tracking-[0.3em] uppercase">Engineered Solutions</span>
+            <span class="text-[#00D1FF] font-mono text-[10px] tracking-[0.3em] uppercase">Engineered Solutions</span>
         </div>
         <h1 class="text-5xl font-black tracking-tighter uppercase italic mb-4">Project Gallery</h1>
         <p class="text-gray-400 max-w-2xl text-sm leading-relaxed">

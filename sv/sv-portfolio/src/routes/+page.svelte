@@ -179,7 +179,7 @@
                 <div class="flex gap-2 mb-3">
                     <span class="text-[9px] tracking-tighter uppercase px-2 py-1 bg-white/10 backdrop-blur-md rounded text-cyan-400">Kubernetes</span>
                 </div>
-                <h3 class="text-2xl font-bold">Hyperion Data Grid</h3>
+                <h3 class="text-2xl font-bold">DevLion Data Grid</h3>
                 <p class="text-sm text-gray-400 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     A distributed low-latency database layer serving 50k+ requests per second.
                 </p>
@@ -188,14 +188,14 @@
 
         <div class="group relative rounded-2xl overflow-hidden bg-black border border-white/10">
             <div class="overflow-hidden">
-                <img src="server.jpg" alt="Nova" class="w-full h-80 object-cover opacity-60 group-hover:scale-110 group-hover:opacity-100 transition-all duration-700" />
+                <img src="SVG.png" alt="Nova" class="w-full h-80 object-cover opacity-60 group-hover:scale-110 group-hover:opacity-100 transition-all duration-700" />
             </div>
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
             <div class="absolute bottom-0 p-8 transform group-hover:-translate-y-2 transition-transform duration-500">
                 <div class="flex gap-2 mb-3">
                     <span class="text-[9px] tracking-tighter uppercase px-2 py-1 bg-white/10 backdrop-blur-md rounded text-cyan-400">React</span>
                 </div>
-                <h3 class="text-2xl font-bold">Nova UI Engine</h3>
+                <h3 class="text-2xl font-bold">Svg Icon Generator</h3>
                 <p class="text-sm text-gray-400 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     A design system engine that automates multi-platform visual consistency.
                 </p>
