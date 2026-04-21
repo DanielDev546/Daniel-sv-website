@@ -188,7 +188,7 @@
 
         <div class="group relative rounded-2xl overflow-hidden bg-black border border-white/10">
             <div class="overflow-hidden">
-                <img src="SVG.png" alt="Nova" class="w-full h-80 object-cover opacity-60 group-hover:scale-110 group-hover:opacity-100 transition-all duration-700" />
+                <img src="Svg (2).png" alt="Nova" class="w-full h-80 object-cover opacity-60 group-hover:scale-110 group-hover:opacity-100 transition-all duration-700" />
             </div>
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
             <div class="absolute bottom-0 p-8 transform group-hover:-translate-y-2 transition-transform duration-500">

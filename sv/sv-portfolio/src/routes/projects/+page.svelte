@@ -3,31 +3,49 @@
     import { quintOut } from 'svelte/easing';
     import { page } from '$app/stores';
 
-    // 1. Project Data - Matching your "Neural Arch" screenshot categories
+    // 1. Updated Project Data with Image paths
     const projects = [
         { 
-            title: 'NEURAL.ARCH', 
+            title: 'SVG Icon Generator', 
             category: 'Real-world Apps',
             desc: 'A high-performance neural network visualizer designed for real-time inference monitoring.', 
             tech: ['Svelte 5', 'Three.js', 'WebWorker'],
-            link: '/projects/neural-arch' 
+            link: '/projects/neural-arch',
+            image: 'Svg (2).webp' // Edit your path here
+        },
+      
+        { 
+            title: 'Project Atlas', 
+            category: 'Labs & R&D',
+            desc: 'An experimental project management tool that uses AI to optimize task allocation and timelines.', 
+            tech: ['Svelte 5', 'AI Integration', 'GraphQL'],
+            link: '/projects/atlas',
+            image: 'pl.webp' // Edit your path here
+        },
+          
+        { 
+            title: 'FrameCode', 
+            category: 'Client Work',
+            desc: 'A complete overhaul of a legacy client portal, focusing on performance and user experience.', 
+            tech: ['Svelte 5', 'Tailwind', 'Runes', 'AI Integration'],
+            link: '/projects/client-portal',
+            image: 'Framecode.webp' // Edit your path here
         },
         { 
             title: 'OS_CORE_LIB', 
             category: 'Open Source',
             desc: 'A headless UI component library built for rapid prototyping of complex industrial dashboards.', 
             tech: ['TypeScript', 'Tailwind', 'Runes'],
-            link: '/projects/os-core' 
-        }
+            link: '/projects/os-core',
+            image: 'Amundi.webp' // Edit your path here
+        },
     ];
 
-    // 2. Runes for State Management
     let activeTab = $state('All Projects');
     let ready = $state(false);
 
     const tabs = ['All Projects', 'Client Work', 'Real-world Apps', 'Open Source', 'Labs & R&D'];
 
-    // Filter logic using Runes
     const filteredProjects = $derived(
         activeTab === 'All Projects' 
             ? projects 
@@ -56,17 +74,9 @@
                     <span class="absolute -bottom-2 left-0 h-[2px] bg-[#00f2ff] shadow-[0_0_10px_#00f2ff] transition-all duration-300 {$page.url.pathname === '/projects' ? 'w-full' : 'w-0 group-hover:w-full'}"></span>
                 </a>
             </li>
-            <li>
-                <a href="/about" class="relative text-sm font-medium transition-colors group {$page.url.pathname === '/projects' ? 'text-white' : 'text-gray-400 hover:text-white'}">
-                    About 
-                </a>
-            </li>
-            <li>
-                 <a href="/contacts" class="relative text-sm font-medium transition-colors group {$page.url.pathname === '/projects' ? 'text-white' : 'text-gray-400 hover:text-white'}">
-                    Contact
-                </a>
-            </li>
-            </ul>
+            <li><a href="/about" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">About</a></li>
+            <li><a href="/contacts" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Contact</a></li>
+        </ul>
 
         <button class="bg-[#00D1FF] text-black px-6 py-2 rounded-sm font-bold text-sm hover:shadow-[0_0_20px_#00D1FF] transition-all">
             Resume
@@ -82,7 +92,7 @@
         </div>
         <h1 class="text-5xl font-black tracking-tighter uppercase italic mb-4">Project Gallery</h1>
         <p class="text-gray-400 max-w-2xl text-sm leading-relaxed">
-            A curated collection of technical explorations, high-performance systems, and refined digital interfaces built with a focus on code integrity and architectural precision.
+            A curated collection of technical explorations, high-performance systems, and refined digital interfaces.
         </p>
     </header>
 
@@ -106,20 +116,22 @@
             {#each filteredProjects as project (project.title)}
                 <div 
                     in:fly={{ y: 20, duration: 800, easing: quintOut }}
-                    class="group relative bg-black border border-white/10 rounded-xl overflow-hidden hover:border-[#00D1FF]/30 transition-all duration-500"
+                    class="group relative bg-[#0a0a0a] border border-white/10 rounded-xl overflow-hidden hover:border-[#00D1FF]/30 transition-all duration-500"
                 >
-                    <div class="h-64 bg-[#0c0c0c] flex items-center justify-center overflow-hidden border-b border-white/5">
-                        <div class="absolute inset-0 bg-gradient-to-br from-[#00D1FF]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="w-40 h-40 border border-[#00D1FF]/20 rounded-full flex items-center justify-center animate-pulse">
-                            <div class="w-20 h-20 border border-[#00D1FF]/40 rounded-full flex items-center justify-center">
-                                <div class="w-4 h-4 bg-[#00D1FF] rounded-full shadow-[0_0_15px_#00D1FF]"></div>
-                            </div>
-                        </div>
+                    <div class="h-64 bg-[#0c0c0c] relative overflow-hidden border-b border-white/5">
+                        <img 
+                            src={project.image} 
+                            alt={project.title} 
+                            loading="lazy"
+                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
+                        <div class="absolute inset-0 bg-[#00D1FF]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
 
                     <div class="p-8">
-                        <span class="text-[9px] font-mono text-gray-500 uppercase tracking-widest mb-3 block">{project.category}</span>
-                        <h3 class="text-2xl font-bold mb-3 group-hover:text-[#00D1FF] transition-colors">{project.title}</h3>
+                        <span class="text-[9px] font-mono text-[#00D1FF] uppercase tracking-widest mb-3 block">{project.category}</span>
+                        <h3 class="text-2xl font-bold mb-3 group-hover:text-white transition-colors">{project.title}</h3>
                         <p class="text-sm text-gray-400 leading-relaxed mb-6 h-12 overflow-hidden">{project.desc}</p>
                         
                         <div class="flex flex-wrap gap-2 mb-8">
@@ -130,7 +142,7 @@
 
                         <div class="flex justify-between items-center">
                             <a href={project.link} class="text-xs font-bold tracking-widest uppercase border border-white/10 px-4 py-2 hover:bg-white hover:text-black transition-all">Case Study</a>
-                            <a href="/" class="text-xs font-bold tracking-widest uppercase text-[#00D1FF] hover:underline">Code</a>
+                            <a href="/" class="text-xs font-bold tracking-widest uppercase text-[#00D1FF] hover:underline">Source Code</a>
                         </div>
                     </div>
                 </div>
