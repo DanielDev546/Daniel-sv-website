@@ -26,10 +26,20 @@
         { 
             title: 'FrameCode', 
             category: 'Client Work',
-            desc: 'A complete overhaul of a legacy client portal, focusing on performance and user experience.', 
-            tech: ['Svelte 5', 'Tailwind', 'Runes', 'AI Integration'],
+            desc: 'Build production ready landing Pages in minutes not in hours ', 
+            tech: ['Svelte 5', 'Tailwi2nd', 'Runes', 'AI Integration'],
             link: '/projects/client-portal',
-            image: 'Framecode.webp' // Edit your path here
+            image: 'Framecode.png' // Edit your path here
+        },
+         {
+            title: 'Vibe Dashboard – Real-Time Analytics UI', 
+            category: 'Real-world Apps',
+            desc: 'A high-performance neural network visualizer designed for real-time inference monitoring.', 
+            tech: ['Svelte 5', 'Three.js', 'WebWorker'],
+            link: 'https://vibe-dashboard-two.vercel.app/',
+            image: 'VibeDashboard.webp' // Edit your path here
+
+
         },
         { 
             title: 'OS_CORE_LIB', 
@@ -141,7 +151,7 @@
                         </div>
 
                         <div class="flex justify-between items-center">
-                            <a href={project.link} class="text-xs font-bold tracking-widest uppercase border border-white/10 px-4 py-2 hover:bg-white hover:text-black transition-all">Case Study</a>
+                            <a href={project.link} class="text-xs font-bold tracking-widest uppercase border border-white/10 px-4 py-2 hover:border-[#00D1FF] hover:text-white transition-all">Live Demo</a>
                             <a href="/" class="text-xs font-bold tracking-widest uppercase text-[#00D1FF] hover:underline">Source Code</a>
                         </div>
                     </div>
