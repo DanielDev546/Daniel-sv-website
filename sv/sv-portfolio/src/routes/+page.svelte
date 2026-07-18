@@ -1,213 +1,404 @@
 <script>
-    import { fly, fade } from 'svelte/transition';
-    import { quintOut } from 'svelte/easing';
+	import Hero from '$lib/components/Hero.svelte';
 
-    // Project Data
-    const projects = [
-        { 
-            title: 'SVG Icon Generator', 
-            desc: 'Dynamic SVG icon generator with live preview.', 
-            tech: ['SvelteKit', 'TypeScript'],
-            link: '#' 
-        },
-        { 
-            title: 'Todo App', 
-            desc: 'Full-stack Todo app with SQLite integration.', 
-            tech: ['Hono', 'SQLite', 'Drizzle'],
-            link: '#' 
-        }
-    ];
+	// Tools & languages, grouped so the section reads as a real toolbox, not a tag cloud
+	const toolGroups = [
+		{
+			label: 'LANGUAGES',
+			tools: ['JavaScript', 'TypeScript', 'Rust', 'Go', 'SQL']
+		},
+		{
+			label: 'FRAMEWORKS & RUNTIME',
+			tools: ['Svelte 5', 'SvelteKit', 'Bun', 'Hono']
+		},
+		{
+			label: 'DATA & INFRA',
+			tools: ['Drizzle ORM', 'SQLite / Turso', 'Cloudflare R2', 'Stripe']
+		},
+		{
+			label: 'AI & PLATFORM',
+			tools: ['Anthropic Claude API', 'JWT / OAuth', 'CodeMirror 6', 'Resend']
+		}
+	];
 
-// 1. Move the navigation data here
-    const navItems = [
-        { name: 'Home', path: '/' },
-        { name: 'Projects', path: '/projects' },
-        { name: 'About', path: '/about' },
-        { name: 'Contact', path: '/contact' }
-    ];
+	// The "versatility" cards — real roles pulled from real projects, not generic titles
+	const roles = [
+		{
+			role: 'Database Analyst',
+			project: 'FrameCode',
+			body: 'He is a database analyst when he\u2019s designing the schema. FrameCode\u2019s data layer runs on Drizzle ORM over SQLite/Turso — modeling projects, activity logs, and billing state so the platform stays consistent as it scales from idea to revenue.',
+			tags: ['Drizzle ORM', 'Turso', 'Schema Design']
+		},
+		{
+			role: 'Backend Engineer',
+			project: 'DevJournal',
+			body: 'He is a backend engineer when the API is the product. DevJournal is built on Hono for routing and Drizzle for persistence, running on Bun — a deliberately lean stack for learning what a full-stack app needs under the hood.',
+			tags: ['Hono', 'Bun', 'REST API']
+		},
+		{
+			role: 'Product Engineer',
+			project: 'SVG Icon Generator',
+			body: 'He is a product engineer when the interface has to feel right. The SVG Icon Generator ships canvas controls, layer management, and export tooling as a real, versioned product — not a demo — currently at v2.1.0.',
+			tags: ['Svelte 5', 'Canvas', 'UX']
+		},
+		{
+			role: 'AI Integration Engineer',
+			project: 'StudyForge',
+			body: 'He is an AI integration engineer when the feature is the intelligence. StudyForge wires the Claude API into CBT-style practice, flashcards, and exam simulation — turning a model into a study partner, not just a chatbot.',
+			tags: ['Claude API', 'Prompt Design']
+		}
+	];
 
-
-    // State for initial mount animation
-    let mounted = $state(false);
-    $effect(() => {
-        mounted = true;
-    });
+	const projects = [
+		{
+			name: 'FrameCode',
+			status: 'In development',
+			tagline: 'The platform where developers go from idea to revenue.',
+			description:
+				'A full-stack SaaS platform with a browser-based IDE, GitHub integration, and an AI Conversion Meter powered by Claude. Auth runs on custom JWT plus GitHub/Google OAuth; billing runs on Stripe.',
+			stack: ['SvelteKit 5', 'Bun', 'Drizzle', 'Claude API', 'Stripe'],
+			link: null
+		},
+		{
+			name: 'SVG Icon Generator',
+			status: 'Live · v2.1.0',
+			tagline: 'A real, versioned tool for building SVG icons in the browser.',
+			description:
+				'Canvas controls, layer management, AI prompt integration, shape presets, and multi-size export. Migrated from Svelte 4 to Svelte 5 runes, with image import and text tools added in later versions.',
+			stack: ['Svelte 5', 'Canvas API', 'AI Prompting'],
+			link: 'https://svg-gen-v210.vercel.app'
+		},
+		{
+			name: 'DevJournal',
+			status: 'Learning project',
+			tagline: 'A full-stack blog platform, built to understand the whole stack.',
+			description:
+				'Scaffolded from the ground up on Hono and Drizzle ORM to get hands-on with API design and data modeling outside of a framework\u2019s defaults.',
+			stack: ['SvelteKit', 'Hono', 'Drizzle', 'SQLite'],
+			link: null
+		},
+		{
+			name: 'StudyForge',
+			status: 'Prototype',
+			tagline: 'An AI-powered study platform with CBT, flashcards, and exams.',
+			description:
+				'Built around the Claude API to power theory exams, flashcard generation, CBT-style practice questions, and content summarization for learners.',
+			stack: ['Claude API', 'HTML', 'JavaScript'],
+			link: null
+		}
+	];
 </script>
 
-<header class="fixed top-0 w-full z-50 border-b border-white/5 bg-black/50 backdrop-blur-xl">
-    <nav class="flex items-center justify-between h-20 px-[10%] bg-[#0a0a0a]/80 backdrop-blur-md border-b border-gray-800">
-        <div class="text-white font-extrabold tracking-widest text-xl">
-            DANIEL.COM
-        </div>
-        
-        <ul class="hidden md:flex items-center space-x-10">
-           {#each navItems as item}
-                <li>
-                    <a 
-                        href={item.path} 
-                        class="relative text-gray-400 text-sm font-medium hover:text-white transition-colors group"
-                    >
-                        {item.name}
-                        <span class="absolute -bottom-2 left-0 w-0 h-[2px] bg-[#00f2ff] shadow-[0_0_10px_#00f2ff] transition-all duration-300 group-hover:w-full"></span>
-                    </a>
-                </li>
-            {/each}
-        </ul>
+<svelte:head>
+	<title>Daniel — Full Stack Developer</title>
+	<meta
+		name="description"
+		content="Daniel (DevLion) — full-stack developer specializing in high-concurrency backends and reactive interfaces, built on Svelte and Bun."
+	/>
+</svelte:head>
 
-        <div>
-            <button class="bg-[#00D1FF] text-black px-6 py-2 rounded-sm font-bold text-sm hover:shadow-[0_0_20px_rgba(0,242,255,0.6)] transition-all transform hover:-translate-y-1 active:scale-95">
-                Resume
-            </button>
-        </div>
-    </nav>
-</header>
-
-<main class="max-w-6xl mx-auto px-6 pt-40 pb-20 overflow-hidden">
-    <div class="flex flex-col lg:flex-row gap-12 items-start">
-        <section class="mb-32 flex-1">
-            {#if mounted}
-                <div in:fly={{ y: 20, duration: 800, delay: 200, easing: quintOut }}>
-                    <div class="flex gap-2 items-center mb-4">
-                        <div class="w-12 h-[1px] bg-[#00D1FF]"></div>
-                        <span class="text-[#00D1FF] text-xs font-mono tracking-[0.3em] uppercase">Full-Stack Engineer</span>
-                    </div> 
-                    
-                    <h1 class="text-6xl md:text-8xl font-bold tracking-tighter mb-6 leading-[0.9]">
-                        ENGINEERING <br />
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00D1FF] to-blue-500">
-                            SCALABLE
-                        </span> <br />
-                        ECOSYSTEMS
-                    </h1>
-                </div>
-
-                <div in:fly={{ y: 20, duration: 800, delay: 400, easing: quintOut }}>
-                    <p class="text-gray-400 max-w-md text-lg leading-relaxed mb-8">
-                        Building high-performance digital infrastructure with a focus on 
-                        clean architecture and premium user interfaces.
-                    </p>
-                    
-                    <div class="flex gap-4">
-                    <a href="/projects">
-                        <button class="bg-[#00D1FF] text-black font-bold text-xs px-8 py-4 tracking-widest hover:brightness-110 transition-all hover:scale-105">
-                            VIEW PROJECTS
-                        </button>
-                    </a>
-                        <button class="border border-white/10 text-white font-bold text-xs px-8 py-4 tracking-widest hover:bg-white/5 transition-all">
-                            CONTACT ME
-                        </button>
-                    </div>
-                </div>
-
-                <div in:fade={{ duration: 1000, delay: 600 }} class="flex flex-wrap gap-12 mt-16 border-t border-white/5 pt-8">
-                    {#each [
-                        { label: 'TECH STACK', val: 'TypeScript' },
-                        { label: 'DATABASES', val: 'SQLite' },
-                        { label: 'DEPLOYMENT', val: 'VERCEL' },
-                        { label: 'AUTH', val: 'JWT/OAUTH' }
-                    ] as stat}
-                        <div>
-                            <p class="text-gray-500 text-[10px] tracking-widest mb-2">{stat.label}</p>
-                            <p class="text-white font-bold text-xl">{stat.val}</p>
-                        </div>
-                    {/each}
-                </div>
-            {/if}
-        </section>
-
-        {#if mounted}
-            <section in:fly={{ x: 50, duration: 1000, delay: 400 }} class="relative hidden lg:block">
-                <div class="absolute -inset-4 bg-[#00D1FF]/10 blur-3xl rounded-full"></div>
-                <img src="side-pic.png" alt="Profile" class="relative w-full h-90 object-cover rounded-2xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-700">
-            </section>
-        {/if}
-    </div>
-
-    <section id="projects" class="mt-20">
-        <div class="flex items-center gap-4 mb-12">
-            <h2 class="text-2xl font-black tracking-tighter uppercase">Project Gallery</h2>
-            <div class="h-[1px] flex-1 bg-white/10"></div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {#each projects as project, i}
-                <div 
-                    class="group relative bg-[#0C0C0C] border border-white/5 p-8 transition-all duration-500 hover:border-[#00D1FF]/50"
-                >
-                    <div class="absolute inset-0 bg-gradient-to-br from-[#00D1FF]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    
-                    <h3 class="text-xl font-bold mb-2 group-hover:text-[#00D1FF] transition-colors">{project.title}</h3>
-                    <p class="text-gray-400 text-sm mb-6">{project.desc}</p>
-                    
-                    <div class="flex flex-wrap gap-2 mb-8">
-                        {#each project.tech as t}
-                            <span class="text-[10px] font-mono text-[#00D1FF] bg-[#00D1FF]/10 px-2 py-1 rounded">
-                                {t}
-                            </span>
-                        {/each}
-                    </div>
-
-                    <a href={project.link} class="text-xs font-bold tracking-widest uppercase flex items-center gap-2 group-hover:gap-4 transition-all">
-                        Live Demo <span class="text-[#00D1FF]">→</span>
-                    </a>
-                </div>
-            {/each}
-        </div>
-    </section>
-</main>
-
-<section class="w-full px-6 py-24 bg-[#0a0a0a] border-t border-white/5">
-    <div class="max-w-6xl mx-auto mb-16 flex items-end justify-between">
-        <div>   <h2 class="text-2xl font-semibold tracking-wide">CORE PROJECTS</h2>
-      <p class="text-gray-400 text-sm mt-2">
-        Precision-engineered solutions for complex computational challenges.
-      </p>
-
-        </div>
-        <a href="/projects" class="text-sm text-[#00D1FF] hover:underline decoration-2 underline-offset-8 transition-all">
-            Explore All
-        </a>
-    </div>
-
-    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
-        <div class="group relative rounded-2xl overflow-hidden bg-black border border-white/10">
-            <div class="overflow-hidden">
-                <img src="cyber.png" alt="Hyperion" class="w-full h-80 object-cover opacity-60 group-hover:scale-110 group-hover:opacity-100 transition-all duration-700" />
-            </div>
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-            <div class="absolute bottom-0 p-8 transform group-hover:-translate-y-2 transition-transform duration-500">
-                <div class="flex gap-2 mb-3">
-                    <span class="text-[9px] tracking-tighter uppercase px-2 py-1 bg-white/10 backdrop-blur-md rounded text-cyan-400">Kubernetes</span>
-                </div>
-                <h3 class="text-2xl font-bold">DevLion Data Grid</h3>
-                <p class="text-sm text-gray-400 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    A distributed low-latency database layer serving 50k+ requests per second.
-                </p>
-            </div>
-        </div>
-
-        <div class="group relative rounded-2xl overflow-hidden bg-black border border-white/10">
-            <div class="overflow-hidden">
-                <img src="Svg (2).webp" alt="Nova" class="w-full h-80 object-cover opacity-60 group-hover:scale-110 group-hover:opacity-100 transition-all duration-700" />
-            </div>
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-            <div class="absolute bottom-0 p-8 transform group-hover:-translate-y-2 transition-transform duration-500">
-                <div class="flex gap-2 mb-3">
-                    <span class="text-[9px] tracking-tighter uppercase px-2 py-1 bg-white/10 backdrop-blur-md rounded text-cyan-400">React</span>
-                </div>
-                <h3 class="text-2xl font-bold">Svg Icon Generator</h3>
-                <p class="text-sm text-gray-400 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    A design system engine that automates multi-platform visual consistency.
-                </p>
-            </div>
-        </div>
-    </div>
+<div>
+<section id="home">
+	<Hero status="OPEN TO WORK" />
 </section>
 
+<section id="tools" class="section">
+	<p class="eyebrow">// TOOLBOX</p>
+	<h2 class="section-title">Tools & languages he reaches for</h2>
+
+	<div class="tool-grid">
+		{#each toolGroups as group}
+			<div class="tool-group">
+				<p class="tool-label">{group.label}</p>
+				<div class="tool-tags">
+					{#each group.tools as tool}
+						<span>{tool}</span>
+					{/each}
+				</div>
+			</div>
+		{/each}
+	</div>
+</section>
+
+<section id="architecture" class="section">
+	<p class="eyebrow">// VERSATILITY</p>
+	<h2 class="section-title">One developer, whatever role the project needs</h2>
+
+	<div class="role-grid">
+		{#each roles as r}
+			<article class="role-card">
+				<p class="role-name">{r.role}</p>
+				<p class="role-project">on {r.project}</p>
+				<p class="role-body">{r.body}</p>
+				<div class="role-tags">
+					{#each r.tags as tag}
+						<span>{tag}</span>
+					{/each}
+				</div>
+			</article>
+		{/each}
+	</div>
+</section>
+
+<section id="projects" class="section">
+	<p class="eyebrow">// SELECTED WORK</p>
+	<h2 class="section-title">Projects</h2>
+
+	<div class="project-grid">
+		{#each projects as p}
+			<article class="project-card">
+				<div class="project-head">
+					<h3>{p.name}</h3>
+					<span class="status">{p.status}</span>
+				</div>
+				<p class="project-tagline">{p.tagline}</p>
+				<p class="project-desc">{p.description}</p>
+				<div class="project-stack">
+					{#each p.stack as tech}
+						<span>{tech}</span>
+					{/each}
+				</div>
+				{#if p.link}
+					<a href={p.link} class="project-link" target="_blank" rel="noopener noreferrer">
+						visit_live &rarr;
+					</a>
+				{/if}
+			</article>
+		{/each}
+	</div>
+</section>
+
+<section id="contact" class="section contact">
+	<p class="eyebrow">// GET IN TOUCH</p>
+	<h2 class="section-title">Let's build something</h2>
+	<p class="contact-copy">
+		Open to freelance work, collaborations, and full-stack roles. If it involves Svelte, Bun, or
+		turning an idea into something people can actually use — reach out.
+	</p>
+	<div class="contact-links">
+		<a href="mailto:hello@devlion.tech" class="btn-primary">Email Daniel</a>
+		<a href="https://github.com/DanielDev546" target="_blank" rel="noopener noreferrer" class="btn-ghost">
+			&gt; github
+		</a>
+		<a href="https://www.tiktok.com/@dotuns026" target="_blank" rel="noopener noreferrer" class="btn-ghost">
+			&gt; tiktok
+		</a>
+	</div>
+</section>
+
+</div>
 <style>
-    :global(body) {
-        background-color: #0a0a0a;
-        color: white;
-        font-family: 'Inter', sans-serif;
-    }
+div{
+	background: black;
+}
+	/* Tools */
+	.tool-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 32px;
+	}
+	.tool-group {
+		border-left: 2px solid var(--line);
+		padding-left: 18px;
+	}
+	.tool-label {
+		font-family: var(--font-mono);
+		font-size: 0.68rem;
+		letter-spacing: 1.5px;
+		color: var(--muted);
+		margin-bottom: 14px;
+	}
+	.tool-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+	.tool-tags span {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		color: var(--text);
+		border: 1px solid var(--line);
+		background: var(--bg-raise);
+		padding: 6px 12px;
+		border-radius: 3px;
+	}
+
+	/* Versatility / roles */
+	.role-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+		gap: 24px;
+	}
+	.role-card {
+		background: var(--bg-raise);
+		border: 1px solid var(--line);
+		border-radius: 8px;
+		padding: 32px;
+		transition: border-color 0.2s;
+	}
+	.role-card:hover {
+		border-color: var(--cyan);
+	}
+	.role-name {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 1.5rem;
+		text-transform: uppercase;
+		background: linear-gradient(90deg, var(--green), var(--cyan));
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+	}
+	.role-project {
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		letter-spacing: 1px;
+		color: var(--muted);
+		margin-top: 4px;
+		margin-bottom: 18px;
+	}
+	.role-body {
+		font-size: 0.92rem;
+		line-height: 1.65;
+		color: #c3cad6;
+		margin-bottom: 20px;
+	}
+	.role-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+	.role-tags span {
+		font-family: var(--font-mono);
+		font-size: 0.68rem;
+		color: var(--cyan);
+		border: 1px solid rgba(0, 212, 255, 0.3);
+		background: rgba(0, 212, 255, 0.05);
+		padding: 4px 10px;
+		border-radius: 3px;
+	}
+
+	/* Projects */
+	.project-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+		gap: 24px;
+	}
+	.project-card {
+		border: 1px solid var(--line);
+		border-radius: 8px;
+		padding: 32px;
+		display: flex;
+		flex-direction: column;
+		transition: transform 0.2s, border-color 0.2s;
+	}
+	.project-card:hover {
+		transform: translateY(-4px);
+		border-color: var(--green);
+	}
+	.project-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		margin-bottom: 10px;
+	}
+	.project-head h3 {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 1.3rem;
+		text-transform: uppercase;
+	}
+	.status {
+		font-family: var(--font-mono);
+		font-size: 0.64rem;
+		letter-spacing: 1px;
+		color: var(--green);
+		border: 1px solid rgba(0, 255, 136, 0.3);
+		padding: 4px 9px;
+		border-radius: 3px;
+		white-space: nowrap;
+	}
+	.project-tagline {
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
+		color: var(--cyan);
+		margin-bottom: 14px;
+	}
+	.project-desc {
+		font-size: 0.88rem;
+		line-height: 1.6;
+		color: #c3cad6;
+		margin-bottom: 20px;
+		flex: 1;
+	}
+	.project-stack {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin-bottom: 16px;
+	}
+	.project-stack span {
+		font-family: var(--font-mono);
+		font-size: 0.68rem;
+		color: var(--muted);
+		border: 1px solid var(--line);
+		padding: 4px 10px;
+		border-radius: 3px;
+	}
+	.project-link {
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
+		color: var(--green);
+		width: fit-content;
+	}
+	.project-link:hover {
+		text-decoration: underline;
+	}
+
+	/* Contact */
+	.contact {
+		text-align: left;
+	}
+	.contact-copy {
+		font-size: 1rem;
+		color: #c3cad6;
+		max-width: 560px;
+		line-height: 1.7;
+		margin-bottom: 36px;
+	}
+	.contact-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 16px;
+	}
+	.btn-primary {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		letter-spacing: 1px;
+		background: var(--text);
+		color: var(--bg);
+		padding: 15px 26px;
+		border-radius: 3px;
+		display: inline-flex;
+		align-items: center;
+		transition: transform 0.2s;
+	}
+	.btn-primary:hover {
+		transform: translateY(-2px);
+	}
+	.btn-ghost {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		letter-spacing: 1px;
+		color: var(--muted);
+		padding: 15px 22px;
+		border: 1px solid var(--line);
+		border-radius: 3px;
+		transition: all 0.2s;
+	}
+	.btn-ghost:hover {
+		color: var(--text);
+		border-color: var(--muted);
+	}
 </style>
